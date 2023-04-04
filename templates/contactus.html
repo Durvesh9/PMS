@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url(https://images.unsplash.com/photo-1556741533-e228ee50f8b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=1080);
+        background-repeat: no-repeat;
+    }
+
+    #contact {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(159, 156, 156);
+        height: 80vh;
+        width: 80vh;
+        margin: auto;
+        border-radius: 2rem;
+        opacity: 80%;
+    }
+
+    #My-last-name {
+        margin-left: 0.5rem;
+    }
+</style>
+
+<body>
+    <div id="contact">
+        <form method="POST" action="{% url 'contactus' %}">{% csrf_token %}
+            <div class="mb-4" style="display: flex;">
+                <span>
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name"
+                        style="width: 10rem; text-align: center;" required>
+                </span>
+
+                <span id="My-last-name">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"
+                        style="width: 10rem; text-align: center;">
+                </span>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                    style="width:20rem;" required>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="form-label">Phone number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your Phone"
+                    style="width:20rem;" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="3" style="width:20rem;"
+                    placeholder="Type you message here" required></textarea>
+            </div>
+            <div class="d-grid gap-2">
+                <button id="submit-btn" class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+<script>
+    // Get the form and the submit button
+    const contactForm = document.querySelector('#contact-form');
+    const submitBtn = document.querySelector('#submit-btn');
+
+    // Add an event listener to the form submission
+    contactForm.addEventListener('submit', (event) => {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Show a success message
+        alert('Submitted successfully!');
+
+        // Redirect to the homepage
+        window.location.href = '';
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

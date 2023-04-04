@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      html{
+        zoom: 110%;
+      }
+      /* Add styles for the login page */
+      *{
+        font-family: "Glory", sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 88.5vh;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        background-color: lightgray;
+        border-radius: 10px;
+      }
+      input[type="text"],
+      input[type="password"] {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: none;
+      }
+      input[type="submit"] {
+        padding: 0.5rem 1rem;
+        background-color: blue;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-login" method="POST" action="/login">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required />
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required />
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+</body>
+
+
+      <!-- Add JavaScript to submit the form -->
+    <!-- <script>
+      const form = document.querySelector("#login-form");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const username = form.elements.username.value;
+        const password = form.elements.password.value;
+        console.log("Username:", username);
+        console.log("Password:", password);
+        // Add code to send the login request to the server
+      });
+    </script> -->
+  </body>
+</html>
+

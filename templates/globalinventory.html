@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+<style>
+ HTML{
+    zoom: 25%;
+ }
+*{
+    font-family: "Glory", sans-serif;
+    padding: 0px 0px ;
+    margin: 0px 0px ;
+}
+.searchbar-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:2px 2px;
+ }
+ .searchbar-container input{
+    font-family: "Glory", sans-serif;
+    border: 8px solid black;
+    width: 180rem;
+    height: 12rem;
+    margin: 2rem;
+    border-radius: 45px;
+    font-size: 4.5rem;
+    padding: 0px 40px;
+ }
+ button:hover {
+    scale:0.9;
+    cursor: pointer;
+}
+
+#sub{
+    border: 8px solid black;
+    height: 12.3rem;
+    width: 30rem;
+    font-size: 5rem;
+    color: rgb(4, 4, 4);
+    margin: 10px;
+    margin-left:-4.5rem;
+    margin-top: 7rem;
+    margin-bottom: 4rem;
+}
+ .content{
+    font-size: 4rem;
+    height: 7.5rem;
+    width: 100rem;
+    border: 1px solid rgba(157, 153, 153, 0.564);
+    font-family: "Glory", sans-serif;
+ }
+
+
+ #table{
+    width: 378rem;
+    height:65vh;
+    text-align: center;
+    padding: 50px;
+    font-size: 20px;
+    margin: 0 auto;
+    display: table;
+ }
+ .My-stock{
+    width: 30rem;
+ }
+ .header{
+    font-size: 3.5rem;
+    height: 8rem;
+    background-color:rgba(148, 184, 148, 0.443) ;
+ }
+ .Name{
+    width: 800rem;
+ }
+button{
+width:140px;
+height: 80px;
+background-color: rgba(167, 203, 112, 0.9);
+border-radius: 20px;
+}
+</style>
+<body>
+    <section>
+        <nav class="searchbar-container">
+            <form method="GET" action="{% url 'searchglobal' %}">
+                <input type="text" name="search_box" id="Search-bar" placeholder="Search for medicine..."/>
+                <span class="material-symbols-outlined" style="position: relative; right: 11rem; top: 2.4rem; font-size:7rem">search</span>
+                <span><button id="sub">Search</button></span>
+            </form>     
+            
+        </nav>
+    </section>
+
+    <section id="table-container">
+    <table id="table">
+        <thead id="tablehead">
+            <tr class="header" style="height: 15rem;">
+                <th class="content" style=" font-size: 4.5rem;">MID</th>
+                <th class="content Name" style=" font-size: 4.5rem;">Name</th>
+                <th class="content Name" style=" font-size: 4.5rem;"> Description</th>
+                <th class="content" style=" font-size: 4.5rem;">Price</th>
+                
+                <th class="content My-stock" style=" font-size: 4.5rem;">Add</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for row in rows %}
+        <tr style="height: 12rem;">
+            <td class="content">{{ row.0 }}</td>
+            <td class="content">{{ row.1 }}</td>
+            <td class="content">{{ row.2 }}</td>
+            <td class="content">{{ row.3 }}</td>
+            
+            <td class="content">
+                <form method="POST" action="{% url 'add_to_mystock' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ row.0 }}">
+                <button><span class="material-symbols-outlined" style="font-size: 4.5rem;"> add</span></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- {% for item in inventory %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td><a href="{% url 'add_to_stock' item.id %}">Add to stock</a></td>
+    </tr>
+{% endfor %} -->

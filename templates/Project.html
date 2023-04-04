@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/project.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <title>Pharma</title>
+
+
+
+
+  <style>
+    #sub{
+    border: 6px solid black;
+    border-radius: 25px;
+    height: 7.8rem;
+    width: 20rem;
+    font-size: 3.5rem;
+    color: rgb(4, 4, 4);
+    margin: 10px;
+    margin-left:-4.5rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-family: "Glory", sans-serif;
+}
+/* .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+} */
+
+.pagination a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  color: black;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+
+
+.Page-no {
+  display: inline-block;
+  margin: 0 0.5rem;
+  font-size: 3.5rem;
+  font-family: "Glory", sans-serif;
+}
+.btn{
+  height: 6rem;
+    width: 16rem;
+    font-size: 3.5rem;
+    border-radius: 10%;
+    font-family: "Glory", sans-serif;
+}
+  </style>
+</head>
+
+
+
+
+
+
+<body>
+  <div class="navbar M-L">
+
+
+<div class="small-container">
+  <div class="Actual-time">
+    <div class="day"></div>
+    <span class="big">Good Morning</span>
+  </div>
+  <span class="small" id="current-time"></span>
+</div>
+
+<script>
+  function displayTime() {
+    var now = new Date();
+    var day = now.toLocaleDateString('en-US', { weekday: 'long' });
+    var date = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    var time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var greeting;
+
+    if (now.getHours() < 12) {
+      greeting = 'Good Morning';
+    } else if (now.getHours() < 17) {
+      greeting = 'Good Afternoon';
+    } else {
+      greeting = 'Good Evening';
+    }
+
+    
+    document.querySelector('.big').textContent = greeting;
+    document.querySelector('#current-time').textContent = date + ' ' + time;
+  }
+
+  setInterval(displayTime, 1000);
+</script>
+
+
+
+  </div>
+  <section class="side-panel-Container">
+    <div id="side-panel">
+      <span id="R-logo"><img src="/static/logo.jpg" alt="" /></span>
+      <a href="/">
+      <span id="C-Name" style="text-decoration: none; color: white;">PMS</span>
+    </a>
+    </div>
+    <div class="profile-pic">
+      <span class="material-symbols-outlined" style="font-size: 8rem">
+        person</span>
+        {% if user.is_authenticated %}
+        <div class="Name-Container">
+          <span id="big-L">{{ user.first_name }}</span><br/>
+          <span id="small-L">
+            {% if user.is_superuser %}
+              ADMIN
+            {% elif user.is_staff %}
+              STAFF
+            {% else %}
+              USER
+            {% endif %}
+          </span>
+        </div>
+      {% endif %}
+      
+    </div>
+    <div class="side-panel-sector1">
+      <div class="small-section" id="active">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">
+          empty_dashboard
+        </span>
+        <span class="Inside-dashboard">Dashboard</span>
+      </div>
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">inventory</span>
+        <a href="/mystock">
+        <span class="Inside-dashboard" style="text-decoration: none; color: white;">My Stock</span>
+        </a>  
+      </div>
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">warning</span>
+        <a href="/medshortage">
+        <span class="Inside-dashboard" style="text-decoration: none; color: white;">Medicine Shortage</span>
+      </a>
+      </div>
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">bookmark</span>
+        <a href="/regularneeds">
+        <span class="Inside-dashboard" style="text-decoration: none; color: white;">Regular Needs</span>
+        </a>
+      </div>
+    </div>
+    <div class="second">
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">contacts</span>
+        <span class="Inside-dashboard">Contact Mangement</span>
+      </div>
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">notifications_active</span>
+        <span class="Inside-dashboard">Notification</span>
+      </div>
+      <div class="small-section">
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">forum</span>
+        <a href="/contactus">
+        <span class="Inside-dashboard" style="text-decoration: nome; color: white;">Chat with us</span>
+        </a>
+      </div>
+      <div class="small-section">
+
+        <span class="material-symbols-outlined" style="font-size: 6.5rem">logout</span>
+        <a href="/logout">{% csrf_token %}
+          <span class="Inside-dashboard" style="text-decoration: none; color: white;">logout</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="Container M-L">
+    <div class="tag">
+      <span id="big">Dashboard</span><br />
+      <span id="small">A qucik overview of the inventory</span>
+    </div>
+
+
+    <div class="box" id="blue-card">
+      <span class="logo"><i class="fa-5x fa-solid fa-globe" style="color: rgba(111, 194, 219, 0.906)"></i></span>
+      <span class="number">200</span>
+      <span class="big-letters">Medicines Available</span>
+      <div class="bottom-box-sector" id="blue">
+        <span>Visit Inventory</span>
+        <a href="/globalinventory">
+        <span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">keyboard_double_arrow_right
+        </span></a>
+      </div>
+    </div>
+
+
+    <div class="box" id="green-card">
+      <span class="logo"><i class="fa-5x fa-solid fa-box-open" style="color: rgba(12, 176, 108, 0.573)"></i></span>
+      <span class="number">100</span>
+      <span class="big-letters">My Stock</span>
+      <div class="bottom-box-sector" id="green">
+        <span>Medicine in My Inventory</span>
+        <a href="/mystock">{% csrf_token %}<span class="material-symbols-outlined"
+            style="font-size: 5rem; margin-left: 20px;">
+            keyboard_double_arrow_right
+          </span></a>
+      </div>
+    </div>
+
+
+    <div class="box" id="red-card">
+      <span class="logo"><i class="fa-5x fa-solid fa-triangle-exclamation" style="color: red"></i></span>
+      <span class="number">21</span>
+      <span class="big-letters">Medicine Shortage</span>
+      <div class="bottom-box-sector" id="red">
+        <span>Resolve Now</span>
+        <a href="/medshortage"><span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">
+            keyboard_double_arrow_right
+          </span></a>
+      </div>
+    </div>
+
+
+    <div class="box" id="yellow-card">
+      <span class="logo"><i class="fa-5x fa-regular fa-bookmark" style="color: rgba(220, 200, 22, 0.694)"></i>
+      </span>
+      <span class="number">18</span>
+      <span class="big-letters">Regular Need</span>
+      <div class="bottom-box-sector" id="yellow">
+        <span>My regular Medicines</span>
+        <a href="/regularneeds">{% csrf_token %}
+          <span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">
+            keyboard_double_arrow_right
+          </span></a>
+      </div>
+    </div>
+
+  </section>
+  <section class="table M-L">
+    <div class="Globe-Container">
+      <span class="material-symbols-outlined" style="font-size: 10rem; padding: 0px">travel_explore</span>
+      <div class="Search-bar">
+        <form method="GET" action="{% url 'searchhome' %}"> 
+        <input type="text" name="Search_bar" id="Search-bar" placeholder="Search for medicine..." />
+        <span class="material-symbols-outlined" style="position: relative; right: 115px; top: 18px; font-size: 5rem">search</span>
+          <span><button id="sub">Search</button></span>
+          </form>  
+      </div>
+      <!-- <span class="Globe">Available Medicines</span> -->
+    </div>
+    <div class="table-container">
+      <table style="text-align: center;">
+        <thead>
+          <tr class="header">
+            <th class="content stock-column">MID</th>
+            <th class="content Name" style="width: 100rem;">Medicine name</th>
+            <th class="content Name" style="width: 150rem;">Description</th>
+            <th class="content">Price</th>
+            
+            <th class="content stock-column">Add to My stock</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in page_obj %}
+        <tr>
+          <td class="content stock-column">{{ row.0 }}</td>
+          <td class="content">{{ row.1 }}</td>
+          <td class="content Name">{{ row.2 }}</td>
+          <td class="content">{{ row.3 }}</td>
+          
+          <td class="content stock-column">
+            <form method="POST" action="{% url 'add_to_mystock' %}">
+              {% csrf_token %}
+              <input type="hidden" name="id" value="{{ row.0 }}">
+            <button><i class="fa-solid fa-plus"></i></button>
+            </form>
+          </td>
+        </tr> 
+        {% endfor %}
+        </tbody>
+      </table>
+      <div class="pagination" style="display: flex; align-items: center; justify-content:center; margin-right: 70px;">
+      
+          <span class="page-btns" style="align-items: center;">
+            {% if page_obj.has_previous %}
+              <button class="btn" style="text-align: center;align-items: center; margin-right: 5px;"> <a href="?page=1">&lt&lt first</a> </button>
+              <button class="btn" style="width: fit-content; margin-right: 20px;"> <a href="?page={{ page_obj.previous_page_number }}">&lt previous</a></button>
+            {% endif %}
+          </span>
+    
+            <span class="Page-no">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+            <span class="page-btns" style="height: 13px; width: 20px; display: flex; align-items: center;">
+            {% if page_obj.has_next %}
+                <button class="btn" style="margin-left: 20px;text-align: center;align-items: center;width: fit-content;"><a href="?page={{ page_obj.next_page_number }}">next&gt</a></button>
+                <button class="btn" style="margin-left:10px;width: fit-content;"><a href="?page={{ page_obj.paginator.num_pages }}">last&gt&gt</a></button>
+            {% endif %}
+          </span>
+
+        
+    </div>
+    </div>
+  </section>
+  <script src="https://kit.fontawesome.com/223400fbbc.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
