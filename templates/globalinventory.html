@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,46 +17,95 @@
     padding: 0px 0px ;
     margin: 0px 0px ;
 }
-.searchbar-container{
+
+    .searchbar-container{
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding:2px 2px;
- }
- .searchbar-container input{
-    font-family: "Glory", sans-serif;
-    border: 8px solid black;
-    width: 180rem;
     height: 12rem;
-    margin: 2rem;
-    border-radius: 45px;
-    font-size: 4.5rem;
-    padding: 0px 40px;
- }
- button:hover {
-    scale:0.9;
-    cursor: pointer;
+    margin-top:0rem;
+    }
+    .searchbar-container input{
+    width: 105rem;
+    margin-left: 30rem;
+    height: 6rem;
+    font-size: 3rem;
+    padding: 0rem 2rem;
+    }
+    #sub{
+    width: 12rem;
+    font-size: 3rem;
+    height: 6rem;
+    margin-left: -1.5rem;
+    }
+    #visit{
+    display:flex;
+    align-items: center;
+    list-style: none;
+    justify-content: space-between;
+    width: 70rem;
+    font-size: 4rem;
+    }
+    li a{
+    text-decoration: none;
+    padding: 0px 12px;
 }
 
-#sub{
-    border: 8px solid black;
-    height: 12.3rem;
-    width: 30rem;
-    font-size: 5rem;
-    color: rgb(4, 4, 4);
-    margin: 10px;
-    margin-left:-4.5rem;
-    margin-top: 7rem;
-    margin-bottom: 4rem;
-}
+    .dropdown {
+		position: relative;
+		display: flex;
+        padding: 0px 12px;
+		}
+        .dropdown :hover{
+            cursor: pointer;
+        }
+		.dropdown-content {
+	    display: none;
+        position: absolute;
+        z-index: 1;
+        margin-top: 5rem;
+        font-size: 3.2rem;
+        width: 40rem;
+		}
+		.dropdown:hover .dropdown-content {
+		display: block;
+		}
+		.dropdown-content a {
+		display: block;
+		padding: 10px;
+		text-decoration: none;
+		color: #333;
+		}
+		.dropdown-content a:hover {
+		background-color: #f5f5f5;
+        cursor: pointer;
+		}
+        .dropdown-content a.active {
+		background-color:#f5f5f5;
+        text-decoration: underline;
+		}
+    #logo{
+    margin-left:auto;
+    }
+    .imp:hover{
+        scale: 1.5;
+        cursor: pointer;
+    }
+    h1{
+        margin-top: 4rem;
+        text-align:center;
+        font-size: 8rem;
+    }
  .content{
     font-size: 4rem;
     height: 7.5rem;
     width: 100rem;
-    border: 1px solid rgba(157, 153, 153, 0.564);
+    border: 1px solid rgba(0, 0, 0, 0.564);
     font-family: "Glory", sans-serif;
  }
 
+ #table-container{
+    margin-top: 4rem;
+ }
 
  #table{
     width: 378rem;
@@ -72,31 +122,54 @@
  .header{
     font-size: 3.5rem;
     height: 8rem;
-    background-color:rgba(148, 184, 148, 0.443) ;
+    background-color:rgb(177, 237, 255) ;
  }
  .Name{
     width: 800rem;
  }
 button{
-width:140px;
-height: 80px;
-background-color: rgba(167, 203, 112, 0.9);
+width:200px;
+height: 100px;
+background-color: rgb(177, 237, 255);
 border-radius: 20px;
+}
+button:hover{
+    scale:0.9;  
 }
 </style>
 <body>
-    <section>
+    <section id="navbar">
         <nav class="searchbar-container">
+            <ul id="visit">
+                <li> <a href="/">Home</a></li>
+                <li> <a href="/contactus">Contact us</a></li>
+            <div class="dropdown">
+                <h3>Dropdown</h3>
+                <div class="dropdown-content">
+                    <a class="active" href="/globalinventory">Global Inventory</a>
+                    <a href="/mystock">My Stock</a>
+                    <a href="/medshortage">Medicine Shortage</a>
+                    <a href="regularneeds">Regular Needs</a>
+            </div>
+            </div>
+            </ul>
+            <div>
             <form method="GET" action="{% url 'searchglobal' %}">
-                <input type="text" name="search_box" id="Search-bar" placeholder="Search for medicine..."/>
-                <span class="material-symbols-outlined" style="position: relative; right: 11rem; top: 2.4rem; font-size:7rem">search</span>
-                <span><button id="sub">Search</button></span>
-            </form>     
-            
+            <input type="text" name="search_box" id="Search-bar" placeholder="Search for medicine..."/>
+            <span class="material-symbols-outlined" style="position: relative; right: 5.3rem; top: 1rem; font-size:4rem;">search</span>
+            <span><button id="sub">Search</button></span>
+            </form>
+            </div>
+            <span id="logo">
+            <span class="material-symbols-outlined imp" style="font-size:5rem; margin-right: 2rem;">notifications</span>
+            <a href="/logout"> <span class="material-symbols-outlined imp" style="font-size:5rem;">logout</span></a>
+            </span>
         </nav>
+        <h1> GLOBAL INVENTORY</h1>
     </section>
 
-    <section id="table-container">
+
+    <section id="table-container" style="margin-top: 4rem;">
     <table id="table">
         <thead id="tablehead">
             <tr class="header" style="height: 15rem;">
@@ -131,6 +204,22 @@ border-radius: 20px;
     </section>
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!-- {% for item in inventory %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td><a href="{% url 'add_to_stock' item.id %}">Add to stock</a></td>
+    </tr>
+{% endfor %} -->
 
 
 

@@ -24,11 +24,11 @@ def project(request):
 
 
 
-def blueCard(request):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) FROM globalinventory")
-        row_count = cursor.fetchone()[0]
-    return render(request, 'Project.html', {'row_count': row_count})
+# def blueCard(request):
+#     with connection.cursor() as cursor:
+#         cursor.execute("SELECT COUNT(*) FROM globalinventory")
+#         row_count = cursor.fetchone()[0]
+#     return render(request, 'Project.html', {'row_count': row_count})
 
 
 def my_stock(request):
@@ -181,11 +181,63 @@ def add_to_mystock(request):
             with connection.cursor() as cursor:
                 cursor.execute('UPDATE mystock SET quantity = quantity + 1 WHERE id = %s', [id])
         
-        return redirect('mystock')
+        return redirect('/globalinventory')
         
     # if the request method is not POST, render the template
     return render(request, 'mystock.html')
 
+
+
+def add_stock_ms(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        
+        # check if the item already exists in mystock
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT id, quantity FROM mystock WHERE id = %s', [id])
+            row = cursor.fetchone()
+        
+        if row is None:
+            # insert the item into mystock with quantity 1
+            with connection.cursor() as cursor:
+                cursor.execute('INSERT INTO mystock (id, name, description, price, quantity) SELECT id, name, description, price, 1 FROM globalinventory WHERE id = %s', [id])
+        else:
+            # increment the quantity of the existing item in mystock
+            with connection.cursor() as cursor:
+                cursor.execute('UPDATE mystock SET quantity = quantity + 1 WHERE id = %s', [id])
+        
+        return redirect('/medshortage')
+        
+    # if the request method is not POST, render the template
+    return render(request, 'mystock.html')
+
+
+def remove_mystock(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        
+        # check if the item already exists in mystock
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT id, quantity FROM mystock WHERE id = %s', [id])
+            row = cursor.fetchone()
+        
+        if row is None:
+            # insert the item into mystock with quantity 1
+            with connection.cursor() as cursor:
+                cursor.execute('INSERT INTO mystock (id, name, description, price, quantity) SELECT id, name, description, price, 1 FROM globalinventory WHERE id = %s', [id])
+        else:
+            # decrement the quantity of the existing item in mystock
+            with connection.cursor() as cursor:
+                cursor.execute('UPDATE mystock SET quantity = quantity - 1 WHERE id = %s', [id])
+            
+            # if the quantity becomes 0, delete the row
+            with connection.cursor() as cursor:
+                cursor.execute('DELETE FROM mystock WHERE id = %s AND quantity = 0', [id])
+        
+        return redirect('/mystock')
+        
+    # if the request method is not POST, render the template
+    return render(request, 'mystock.html')
 
 
 

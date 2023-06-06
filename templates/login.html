@@ -12,11 +12,17 @@
         font-family: "Glory", sans-serif;
       }
       .container {
+        background-image: url("/static/logbg.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 88.5vh;
+        height: 91.5vh;
+        margin: 0;
+        padding: 0;
       }
       form {
         display: flex;
@@ -41,9 +47,14 @@
         border: none;
         cursor: pointer;
       }
+      body{
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
-  <body>
+  <body >
+    <div class="background-image">
     <div class="container">
       <form class="form-login" method="POST" action="/login">
         {% csrf_token %}
@@ -56,6 +67,7 @@
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required />
         <input type="submit" value="Login" />
       </form>
+    </div>
     </div>
 </body>
 
@@ -72,6 +84,6 @@
         // Add code to send the login request to the server
       });
     </script> -->
-  </body>
+  
 </html>
 

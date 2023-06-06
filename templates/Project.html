@@ -15,6 +15,9 @@
 
 
   <style>
+
+
+
     #sub{
     border: 6px solid black;
     border-radius: 25px;
@@ -60,6 +63,21 @@
     border-radius: 10%;
     font-family: "Glory", sans-serif;
 }
+
+.content{
+  border: 0.5px solid black;
+}
+
+.small-section.active {
+  background-color: rgb(113, 111, 111);
+  color: #f7f0f0;
+  border-left: 3px solid #008000;
+}
+/* .active:active{
+  background-color: var(--color);
+} */
+
+
   </style>
 </head>
 
@@ -110,7 +128,7 @@
   <section class="side-panel-Container">
     <div id="side-panel">
       <span id="R-logo"><img src="/static/logo.jpg" alt="" /></span>
-      <a href="/">
+      <a href="/" style="text-decoration: none;">
       <span id="C-Name" style="text-decoration: none; color: white;">PMS</span>
     </a>
     </div>
@@ -133,51 +151,50 @@
       {% endif %}
       
     </div>
+
     <div class="side-panel-sector1">
-      <div class="small-section" id="active">
+      <div class="small-section active"  >
         <span class="material-symbols-outlined" style="font-size: 6.5rem">
           empty_dashboard
         </span>
         <span class="Inside-dashboard">Dashboard</span>
       </div>
+      
       <div class="small-section">
         <span class="material-symbols-outlined" style="font-size: 6.5rem">inventory</span>
-        <a href="/mystock">
+        <a href="/mystock" style="text-decoration: none;">
         <span class="Inside-dashboard" style="text-decoration: none; color: white;">My Stock</span>
         </a>  
       </div>
       <div class="small-section">
         <span class="material-symbols-outlined" style="font-size: 6.5rem">warning</span>
-        <a href="/medshortage">
+        <a href="/medshortage" style="text-decoration: none;">
         <span class="Inside-dashboard" style="text-decoration: none; color: white;">Medicine Shortage</span>
       </a>
       </div>
       <div class="small-section">
         <span class="material-symbols-outlined" style="font-size: 6.5rem">bookmark</span>
-        <a href="/regularneeds">
+        <a href="/regularneeds" style="text-decoration: none;">
         <span class="Inside-dashboard" style="text-decoration: none; color: white;">Regular Needs</span>
         </a>
       </div>
     </div>
     <div class="second">
-      <div class="small-section">
-        <span class="material-symbols-outlined" style="font-size: 6.5rem">contacts</span>
-        <span class="Inside-dashboard">Contact Mangement</span>
-      </div>
+      
       <div class="small-section">
         <span class="material-symbols-outlined" style="font-size: 6.5rem">notifications_active</span>
         <span class="Inside-dashboard">Notification</span>
       </div>
       <div class="small-section">
         <span class="material-symbols-outlined" style="font-size: 6.5rem">forum</span>
-        <a href="/contactus">
-        <span class="Inside-dashboard" style="text-decoration: nome; color: white;">Chat with us</span>
+        <a href="/contactus" style="text-decoration: none;">
+        <span class="Inside-dashboard" style="text-decoration: nome; color: white;">Contact Us</span>
         </a>
       </div>
       <div class="small-section">
 
         <span class="material-symbols-outlined" style="font-size: 6.5rem">logout</span>
-        <a href="/logout">{% csrf_token %}
+        <a href="/logout" style="text-decoration: none;">{% csrf_token %}
           <span class="Inside-dashboard" style="text-decoration: none; color: white;">logout</span>
         </a>
       </div>
@@ -190,46 +207,52 @@
     </div>
 
 
+    <a href="/globalinventory" style="text-decoration: none; color: black;">
     <div class="box" id="blue-card">
       <span class="logo"><i class="fa-5x fa-solid fa-globe" style="color: rgba(111, 194, 219, 0.906)"></i></span>
       <span class="number">200</span>
       <span class="big-letters">Medicines Available</span>
       <div class="bottom-box-sector" id="blue">
         <span>Visit Inventory</span>
-        <a href="/globalinventory">
         <span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">keyboard_double_arrow_right
-        </span></a>
+        </span>
       </div>
     </div>
+  </a>
 
 
+  <a href="/mystock" style="text-decoration: none; color: black;">
     <div class="box" id="green-card">
       <span class="logo"><i class="fa-5x fa-solid fa-box-open" style="color: rgba(12, 176, 108, 0.573)"></i></span>
       <span class="number">100</span>
       <span class="big-letters">My Stock</span>
       <div class="bottom-box-sector" id="green">
         <span>Medicine in My Inventory</span>
-        <a href="/mystock">{% csrf_token %}<span class="material-symbols-outlined"
+          {% csrf_token %}<span class="material-symbols-outlined"
             style="font-size: 5rem; margin-left: 20px;">
             keyboard_double_arrow_right
-          </span></a>
+          </span>
+        </div>
       </div>
-    </div>
+    </a>
 
 
+    <a href="/medshortage" style="text-decoration: none; color: black;">
     <div class="box" id="red-card">
       <span class="logo"><i class="fa-5x fa-solid fa-triangle-exclamation" style="color: red"></i></span>
       <span class="number">21</span>
       <span class="big-letters">Medicine Shortage</span>
       <div class="bottom-box-sector" id="red">
         <span>Resolve Now</span>
-        <a href="/medshortage"><span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">
+          <span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">
             keyboard_double_arrow_right
-          </span></a>
+          </span>
+        </div>
       </div>
-    </div>
+    </a>
 
 
+    <a href="/regularneeds" style="text-decoration: none; color: black;">
     <div class="box" id="yellow-card">
       <span class="logo"><i class="fa-5x fa-regular fa-bookmark" style="color: rgba(220, 200, 22, 0.694)"></i>
       </span>
@@ -237,17 +260,18 @@
       <span class="big-letters">Regular Need</span>
       <div class="bottom-box-sector" id="yellow">
         <span>My regular Medicines</span>
-        <a href="/regularneeds">{% csrf_token %}
+          {% csrf_token %}
           <span class="material-symbols-outlined" style="font-size: 5rem; margin-left: 20px;">
             keyboard_double_arrow_right
-          </span></a>
+          </span>
+        </div>
       </div>
-    </div>
+    </a>
 
   </section>
   <section class="table M-L">
-    <div class="Globe-Container">
-      <span class="material-symbols-outlined" style="font-size: 10rem; padding: 0px">travel_explore</span>
+    <div class="Globe-Container" style="background-color: rgba(146, 239, 201, 0.916);">
+      <span class="material-symbols-outlined" style="font-size: 10rem; padding: 0px;">travel_explore</span>
       <div class="Search-bar">
         <form method="GET" action="{% url 'searchhome' %}"> 
         <input type="text" name="Search_bar" id="Search-bar" placeholder="Search for medicine..." />
@@ -258,8 +282,8 @@
       <!-- <span class="Globe">Available Medicines</span> -->
     </div>
     <div class="table-container">
-      <table style="text-align: center;">
-        <thead>
+      <table style="text-align: center;border: 2px solid rgba(0, 0, 0, 0.564);">
+        <thead style="background-color: rgb(129, 255, 202);">
           <tr class="header">
             <th class="content stock-column">MID</th>
             <th class="content Name" style="width: 100rem;">Medicine name</th>
@@ -271,7 +295,7 @@
         </thead>
         <tbody>
         {% for row in page_obj %}
-        <tr>
+        <tr style="background-color: white;">
           <td class="content stock-column">{{ row.0 }}</td>
           <td class="content">{{ row.1 }}</td>
           <td class="content Name">{{ row.2 }}</td>
@@ -281,7 +305,7 @@
             <form method="POST" action="{% url 'add_to_mystock' %}">
               {% csrf_token %}
               <input type="hidden" name="id" value="{{ row.0 }}">
-            <button><i class="fa-solid fa-plus"></i></button>
+            <button style="background-color: rgba(85, 225, 167, 0.916);"><i class="fa-solid fa-plus"></i></button>
             </form>
           </td>
         </tr> 
